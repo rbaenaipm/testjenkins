@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Posts</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            border: none;
+        }
+        tr {
+            border-top: 1px solid black;
+        }
+        tr:first-child {
+            border-top: none;
+        }
+        td {
+            border: none ;
+        }
+    </style>
+</head>
+<body>
+    <p th:if="${entries.size()} == 0"> No entries </p>
+    <table th:if="${entries.size()} > 0"}>
+        <tr th:each="entry: ${entries}">
+            <td><span th:text="${entry.formattedTime}"></span></td>
+            <td><span th:text="${entry.body}"></span></td>
+        </tr>
+    </table>
+</body>
+</html>
