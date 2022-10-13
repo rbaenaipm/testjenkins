@@ -1,5 +1,5 @@
 pipeline{
-    agent {label "linux"}
+    agent any
     options {
         buildDiscarder(logRotator(numToKeepStr:'5'))
     }
@@ -7,9 +7,9 @@ pipeline{
         DOCKERHUB_CREDENTIALS = credentials('harboradmin')
     }
     stages{
-        stage('Build'){
+        stage('LOGIN'){
             steps{
-                 sh 'docker builf -t toybank/alpine:rbaenaipm'
+                 sh '''echo $HARBOR_CREDENTIAL_PSW | docker login $REGISTRY -u 'robot$admin' --password-stdin'''
             }
      
         }
