@@ -1,7 +1,7 @@
 pipeline {  
   agent {
     node {
-      label 'maven'
+      label 'maeven-3-8'
     }
   }
      
@@ -26,15 +26,4 @@ pipeline {
             }
           }  
         }
-           
-    stage('build & push') {
-      steps {
-        container ('maven') {
-          sh 'git clone https://github.com/rbaenaipm/testjenkins.git'
-          sh 'cd dockerfile-examples/rethinkdb && docker build -t $REGISTRY/$HARBOR_NAMESPACE/$APP_NAME:devops-test .'
-          sh 'docker push  $REGISTRY/$HARBOR_NAMESPACE/$APP_NAME:devops-test'
-          }
-        }
-      }
-    }
-  }
+}
