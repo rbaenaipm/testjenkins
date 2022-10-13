@@ -7,12 +7,12 @@ pipeline{
               }
 
             }
+         }
         stage("Creando service account"){
             steps{
                 sh 'kubectl apply -f service-account.yaml'
+                }
             }
-        }
-        }
     }
 }
 
