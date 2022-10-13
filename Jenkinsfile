@@ -1,5 +1,5 @@
 pipeline{
-    agent any{
+    agent any{}
     stages{
         stage('Entrado en carpeta kpack'){
             steps{
@@ -14,5 +14,4 @@ pipeline{
                 }
             }
     }
-}
 
