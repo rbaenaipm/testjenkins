@@ -1,42 +1,34 @@
 pipeline {
-  agent {
-    node {
-      label 'maven'
+    agent any 
+    environment {
+    DOCKERHUB_CREDENTIALS = credentials('harboradmin')
     }
-  }
-
-  environment {
-    // the address of your harbor registry
-    REGISTRY = 'harbor.sc.ipm'
-    // the project name
-    // make sure your robot account have enough access to the project
-    HARBOR_NAMESPACE = 'toybank'
-    // docker image name
-    APP_NAME = 'ejemplodocker'
-    // ‘robot-test’ is the credential ID you created on the KubeSphere console
-    HARBOR_CREDENTIAL = credentials('harboradmin')
-  }
-
-  stages {
-    stage('docker login') {
-      steps{
-        container ('maven') {
-          // replace the Docker Hub username behind -u and do not forget ''. You can also use a Docker Hub token.
-          sh '''echo $HARBOR_CREDENTIAL_PSW | docker login $REGISTRY -u 'robot$robot-test' --password-stdin'''
+    stages { 
+        stage('SCM Checkout') {
+            steps{
+            git 'https://github.com/rbaenaipm/testjenkins'
             }
-          }
         }
 
-    stage('build & push') {
-      steps {
-        container ('maven') {
-          sh 'docker build -t $REGISTRY/$HARBOR_NAMESPACE/$APP_NAME:devops-test .'
-          sh 'docker push  $REGISTRY/$HARBOR_NAMESPACE/$APP_NAME:devops-test'
-          }
+        stage('Build docker image') {
+            steps {  
+                sh 'docker build -t toybank/nodeapp:$BUILD_NUMBER .'
+            }
         }
-      }
+        stage('login to dockerhub') {
+            steps{
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login harbor.sc.ipm -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
+        stage('push image') {
+            steps{
+                sh 'docker push toubank/nodeapp:$BUILD_NUMBER'
+            }
+        }
+}
+post {
+        always {
+            sh 'docker logout'
+        }
     }
-  }
-
-
-
+}
