@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage ('Initialize') {
       steps {
-        echo 'Placeholder.'
+        sh 'cd kpack'
       }
     }
   }
