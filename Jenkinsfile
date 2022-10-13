@@ -8,7 +8,10 @@ pipeline{
     }
     stages{
         stage('Build'){
-            sh 'docker build -t toybank/alpine:rbaenaipm .'
+            steps{
+                 sh 'docker builf -t toybank/alpine:rbaenaipm'
+            }
+     
         }
     }
 }
