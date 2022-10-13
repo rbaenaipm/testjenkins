@@ -1,17 +1,18 @@
 pipeline{
-    agent any
-    options {
-        buildDiscarder(logRotator(numToKeepStr:'5'))
-    }
-    environment {
-        DOCKERHUB_CREDENTIALS = credentials('harboradmin')
-    }
+    agent any{
     stages{
-        stage('LOGIN'){
+        stage('Entrado en carpeta kpack'){
             steps{
-                 sh '''echo $HARBOR_CREDENTIAL_PSW | docker login $REGISTRY -u 'robot$admin' --password-stdin'''
+                 sh 'cd kpack'
+              }
+
             }
-     
+        stage("Creando service account"){
+            steps{
+                sh 'kubectl apply -f service-account.yaml'
+            }
+        }
         }
     }
 }
+
