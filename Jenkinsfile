@@ -4,7 +4,7 @@ pipeline {
     stage ('Initialize') {
       steps {
         sh 'cd kpack'
-        sh 'ls -la'
+        sh 'kubectl apply -f kube/.'
       }
     }
   }
