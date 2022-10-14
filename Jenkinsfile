@@ -16,8 +16,8 @@ pipeline {
     }
 
     stage('Apply Kubernetes files') {
-    withKubeConfig([credentialsId: 'user1', serverUrl: 'https://api.k8s.my-company.com']) {
-      sh 'kubectl apply -f my-kubernetes-directory'
+    withKubeConfig([credentialsId: 'test2', serverUrl: 'https://172.16.202.14:6443/']) {
+      sh 'kubectl get pods'
     }
   }
 
