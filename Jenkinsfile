@@ -10,7 +10,7 @@ pipeline {
       steps {
         script {
           kubernetesDeploy(configs: "service-account.yaml", kubeconfigId: "test2")
-          
+          sh "kubectl get pods"
         }
       }
     }
