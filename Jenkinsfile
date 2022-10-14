@@ -4,7 +4,7 @@ pipeline {
     stage ('Initialize') {
       steps {
         script {
-          kubernetesDeploy(configs: "service-account.yml", kubeconfigId: "kubernetes-file")
+           kubernetesDeploy kubeconfigId: 'kubernetes-file', configs: 'kpack/service-account.yaml'
         }
       }
     }
