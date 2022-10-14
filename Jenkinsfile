@@ -1,12 +1,12 @@
 pipeline {
   agent any
   stages {
-    stage ('Initialize') {
-      steps {
-        script {
-           kubernetesDeploy kubeconfigId: 'kubernetes-file', configs: 'kpack/service-account.yaml'
-        }
-      }
+    node {
+  stage('Apply Kubernetes files') {
+    withKubeConfig([credentialsId: 'kubernetes-file', serverUrl: 'https://172.16.202.14:6443']) {
+      sh 'kubectl apply -f kpack/.'
     }
+  }
+}
   }
 }
