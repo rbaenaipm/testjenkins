@@ -1,11 +1,26 @@
 pipeline {
 
+  environment {
+    dockerimagename = "thetips4you/nodeapp"
+    dockerImage = ""
+  }
+
   agent any
- node {
-  stage('Apply Kubernetes files') {
-    withKubeConfig([credentialsId: 'test2', serverUrl: 'https://172.16.202.14:6443']) {
-      sh 'kubectl get pods'
+
+  stages {
+
+    stage('Checkout Source') {
+      steps {
+        git 'https://github.com/shazforiot/nodeapp_test.git'
+      }
+    }
+
+    stage('Apply Kubernetes files') {
+    withKubeConfig([credentialsId: 'user1', serverUrl: 'https://api.k8s.my-company.com']) {
+      sh 'kubectl apply -f my-kubernetes-directory'
     }
   }
-}
+
+  }
+
 }
