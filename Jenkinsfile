@@ -3,8 +3,7 @@ pipeline {
       stages{
   stage('Apply Kubernetes files') {
     steps{
-      sh 'updatedb'
-      sh 'locate kubectl'
+      sh 'ls -la /usr/local/bin'
       }
     }
   }
