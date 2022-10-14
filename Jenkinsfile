@@ -7,14 +7,9 @@ pipeline {
   agent any
   stages {
     stage('Deploying App to Kubernetes') {
-      steps {
-        script {
-          kubernetesDeploy(configs: "service-account.yaml", kubeconfigId: "test2")
-          sh "kubectl get pods"
-        }
-      }
+      withKubeConfig([credentialsId: 'test2', serverUrl: 'https://172.16.202.14:6443']) {
+      sh 'kubectl get pods'
     }
-
   }
 
 }
