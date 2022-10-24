@@ -11,5 +11,5 @@ spec:
     kind: Builder
   source:
     git:
-      url: https://github.com/spring-projects/spring-petclinic
-      revision: 82cb521d636b282340378d80a6307a08e3d4a4c4
+      url: https://github.com/IPM-a-Ricoh-Company/spring-petclinic.git
+      revision: main
