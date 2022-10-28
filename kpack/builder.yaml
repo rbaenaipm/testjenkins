@@ -1,11 +1,11 @@
 apiVersion: kpack.io/v1alpha2
 kind: Builder
 metadata:
-  name: app1-builder
-  namespace: app1
+  name: my-builder
+  namespace: default
 spec:
-  serviceAccountName: app1-account
-  tag: harbor.sc.ipm/jenkinstest/builder
+  serviceAccountName: tutorial-service-account
+  tag: harbor.sc.ipm/toybank/builder
   stack:
     name: base
     kind: ClusterStack
